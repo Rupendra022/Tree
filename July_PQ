@@ -16,17 +16,24 @@ class Solution {
 
 2.  Check two tree are identical or not >- 
 class Solution {
-    public int maxDepth(TreeNode root) {
-        //your code goes here
-
-        if(root==null){
-            return 0 ; 
+    // Function to check if two trees are identical.
+    boolean isIdentical(Node r1, Node r2) {
+        // Code Here
+        // RADHE RADHE 
+        
+        if(r1==null && r2==null){
+            return true ; 
         }
-        int lh = maxDepth(root.left);
-        int rh = maxDepth(root.right);
-
-        return Math.max(lh,rh)+1 ;
-     }
+        
+        if(r1==null || r2==null){
+            return false ; 
+        }
+        if(r1.data!=r2.data){
+            return false ; 
+        }
+        
+        return isIdentical(r1.left,r2.left) && isIdentical(r1.right,r2.right);
+    }
 }
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
