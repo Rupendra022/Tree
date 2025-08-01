@@ -1,0 +1,32 @@
+1. Height of Binary Tree >- 
+class Solution {
+    public int maxDepth(TreeNode root) {
+        //your code goes here
+
+        if(root==null){
+            return 0 ; 
+        }
+        int lh = maxDepth(root.left);
+        int rh = maxDepth(root.right);
+
+        return Math.max(lh,rh)+1 ;
+     }
+}
+
+
+2.  Check two tree are identical or not >- 
+class Solution {
+    public int maxDepth(TreeNode root) {
+        //your code goes here
+
+        if(root==null){
+            return 0 ; 
+        }
+        int lh = maxDepth(root.left);
+        int rh = maxDepth(root.right);
+
+        return Math.max(lh,rh)+1 ;
+     }
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
