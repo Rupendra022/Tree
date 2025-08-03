@@ -50,3 +50,31 @@ class Solution {
 }
 
 ------------------------------------------------------------------------------------------------------------------------------------------------
+3. Symmetric Tree >- 
+
+class Solution {
+    public boolean symmetry(TreeNode l, TreeNode r){
+        if(l==null && r==null){
+            return true ; 
+        }
+        if(l==null || r==null){
+            return false ; 
+        }
+        
+        if(l.data!=r.data){
+            return false ;
+        }
+        return symmetry(l.left,r.right) && symmetry(l.right,r.left);
+    }
+    public boolean isSymmetric(TreeNode root) {
+        //your code goes here
+        if(root==null){
+            return true ; 
+        }
+
+        return symmetry(root.left,root.right);
+    }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------
