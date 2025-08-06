@@ -283,3 +283,43 @@ class Solution {
     }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------------
+
+9. COUNT OF NODES IN COMPLETE BINARY TREE >- T.C. >- O(LOGN) >- 
+class Solution {
+    public int lheight(TreeNode root) {
+        int count = 0 ;
+        while(root!=null){
+            root = root.left ; 
+            count++ ; 
+        }
+        
+
+        return count ;
+    }
+
+    public int rheight(TreeNode root) {
+        int count = 0 ;
+        while(root!=null){
+            root = root.right ; 
+            count++ ; 
+        }
+        
+
+        return count ;
+    }
+
+    public int countNodes(TreeNode root) {
+        if(root==null){
+            return 0 ; 
+        }
+
+        int lh = lheight(root.left);
+        int rh = rheight(root.right);
+        
+        // for complete binary tree 
+        if(lh==rh) return ((2<<(lh))-1) ; 
+
+        else return countNodes(root.left) + countNodes(root.right) + 1 ; 
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------
