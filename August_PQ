@@ -202,3 +202,44 @@ class Solution {
     return ans ;  
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
+7. TOP VIEW OF BINARY TREE >- 
+class Solution {
+    static class Pair{
+        Node node ;
+        int hd ; 
+        Pair(Node node , int hd){
+            this.node = node ; 
+            this.hd = hd ; 
+        }
+    }
+    // Function to return a list of nodes visible from the top view
+    // from left to right in Binary Tree.
+    static ArrayList<Integer> topView(Node root) {
+        // code here
+        ArrayList<Integer> ans = new ArrayList<>();
+        Queue<Pair> q = new LinkedList<>();
+        
+        q.add(new Pair(root,0));
+        
+        TreeMap<Integer,Node> map = new TreeMap<>();
+        
+        while(!q.isEmpty()){
+            
+            Pair curr = q.poll();
+            
+            map.putIfAbsent(curr.hd,curr.node);
+            
+            if(curr.node.left!=null) q.add(new Pair(curr.node.left,curr.hd-1));
+            if(curr.node.right!=null) q.add(new Pair(curr.node.right,curr.hd+1));
+            
+            
+        }
+        
+        for(int ele : map.keySet()){
+            ans.add(map.get(ele).data);
+        }
+        
+        return ans ;
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------
