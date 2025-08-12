@@ -340,3 +340,31 @@ class Solution {
     }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------------
+11. ROOT TO LEAF PATHS >- 
+class Solution {
+    public static void helper(Node root ,ArrayList<ArrayList<Integer>> ans,ArrayList<Integer> a){
+        if(root==null) return ; 
+        
+        a.add(root.data);
+        if(root.left==null && root.right==null){
+            ans.add(new ArrayList<>(a));
+            a.remove(a.size()-1); // to delete leaf node  
+            return ;
+        }
+        
+        helper(root.left,ans,a);
+        helper(root.right,ans,a);
+        a.remove(a.size()-1); // for cleanup
+    }
+    public static ArrayList<ArrayList<Integer>> Paths(Node root) {
+        // code here
+        ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+        ArrayList<Integer> a = new ArrayList<>();
+        helper(root,ans,a);
+        
+        return ans ;
+    }
+}
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
