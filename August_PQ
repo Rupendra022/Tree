@@ -368,3 +368,77 @@ class Solution {
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
+12. PRINT PATH FROM ROOT TO GIVEN NODE IN A BINARY TREE >-
+public static boolean hasPath(Node root, ArrayList<Integer> arr, int x) 
+    { 
+        // if root is NULL 
+        // there is no path 
+        if (root==null) 
+            return false; 
+      
+        // push the node's value in 'arr' 
+        arr.add(root.data);     
+      
+        // if it is the required node 
+        // return true 
+        if (root.data == x)     
+            return true; 
+      
+        // else check whether the required node lies 
+        // in the left subtree or right subtree of  
+        // the current node 
+        if (hasPath(root.left, arr, x) || 
+            hasPath(root.right, arr, x)) 
+            return true; 
+      
+        // required node does not lie either in the  
+        // left or right subtree of the current node 
+        // Thus, remove current node's value from  
+        // 'arr'and then return false     
+        arr.remove(arr.size()-1); 
+        return false;             
+    } 
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+13. LOWEST COMMON ANCESTORS OF A BINARY TREE >- 
+BETTER APPROACH >=
+PREREQUISITE >- PRINT PATH FROM ROOT TO GIVEN NODE IN A BINARY TREE 
+class Solution {
+    public boolean path(ArrayList<TreeNode> a, TreeNode root, TreeNode target) {
+        if (root == null)
+            return false; // no path exist 
+
+        a.add(root);
+        if (root == target)
+            return true;
+
+        if (path(a, root.left, target) || path(a, root.right, target)) { // if any one is giving path
+            return true;
+        }
+        a.remove(a.size() - 1); // backtrack 
+        return false;
+
+    }
+
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+
+        ArrayList<TreeNode> a1 = new ArrayList<>();
+        ArrayList<TreeNode> a2 = new ArrayList<>();
+        path(a1, root, p);
+        path(a2, root, q);
+
+        int sz = Math.min(a1.size(), a2.size());
+        for (int i = 0; i < sz; i++) {
+            if (a1.get(i) != a2.get(i)) {
+                return a1.get(i - 1);
+            }
+        }
+
+        return a1.get(sz - 1);
+    }
+}
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
