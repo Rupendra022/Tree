@@ -462,3 +462,50 @@ class Solution {
     }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------------
+15. CHECK IF TWO NODES ARE COUSINS >- 
+class Solution {
+    public boolean path(Node root , int target ,ArrayList<Node> way){
+        if(root==null){
+            return false ; 
+        }
+        way.add(root);
+        if(root.data==target){
+            return true ; 
+        }
+        if(path(root.left,target,way) ||path(root.right,target,way)){
+            return true ; 
+        }
+        way.remove(way.size()-1);
+        return false ; 
+        
+    }
+
+    // Returns true if the nodes with values 'a' and 'b' are cousins. Else returns false
+    public boolean isCousins(Node root, int a, int b) {
+        // RADHE RADHE 
+        // your code here
+        if(root.left==null && root.right==null){
+            return false ;
+        }
+        // This function should return true if x and y are cousins, else return false
+        
+        ArrayList<Node> a1 = new ArrayList<>();
+        ArrayList<Node> a2 = new ArrayList<>();
+        
+        path(root,a,a1);
+        path(root,b,a2);
+        
+        
+        if(a1.size()!=a2.size()){
+            return false ; 
+        }
+        
+        
+        if(a1.size()>=2 && (a1.size()==a2.size() && a1.get(a1.size()-2)!=a2.get(a2.size()-2))){
+            return true ; 
+        }
+        
+        return false ;
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------
