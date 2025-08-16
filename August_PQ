@@ -508,12 +508,54 @@ class Solution {
         return false ;
     }
 }
+
 -----------------------------------------------------------------------------------------------------------------------------------------------
-16. MINIMUM DISTANCE B/W TWO NODES OF BINARY TREE >- (GFG HARD) 
+16. MINIMUM DISTANCE B/W TWO NODES OF BINARY TREE >- 
+APPROACH1 >- SIMPLE AND EASY TO GRASP >- 
+USING ROOT TO NODE PATH AND LCA LOGICS >-
+BETTER APPROACH 
+class GfG {
+    // helper function: get path from root to target
+    public boolean path(Node root, int target, ArrayList<Integer> ans) {
+        if (root == null) return false;
+        
+        ans.add(root.data);
+
+        if (root.data == target) return true;
+
+        if (path(root.left, target, ans) || path(root.right, target, ans)) {
+            return true;
+        }
+
+        // backtrack if target not found in this branch
+        ans.remove(ans.size() - 1);
+        return false;
+    }
+
+    int findDist(Node root, int a, int b) {
+        ArrayList<Integer> a1 = new ArrayList<>();
+        ArrayList<Integer> a2 = new ArrayList<>();
+
+        // find paths from root to a and root to b
+        if (!path(root, a, a1) || !path(root, b, a2)) {
+            return -1; // one of the nodes doesn't exist
+        }
+
+        // find LCA by comparing paths
+        int i = 0;
+        while (i < a1.size() && i < a2.size() && a1.get(i).equals(a2.get(i))) {
+            i++;
+        }
+
+        // distance = remaining nodes in pathA + remaining nodes in pathB
+        return (a1.size() - i) + (a2.size() - i);
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+17. MINIMUM DISTANCE B/W TWO NODES OF BINARY TREE >- (GFG HARD) 
 PREREQUISITE >- LCA 
-
-// JAVA BEGINNER FRIENDLY SOLUTION >- 
-
+RECURSIVE APPROACH 
 APPROACH >- We have to calculate the minimum distance so if we do an observation then we will able to find it out that the minimum distance
 b/w two nodes will always come through the lca of these two nodes.
 So first of all we just find out the lca of both the nodes and then we find out the distance b/w first node and lca called it as dist1 and 
