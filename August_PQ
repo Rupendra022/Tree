@@ -509,3 +509,64 @@ class Solution {
     }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------------
+16. MINIMUM DISTANCE B/W TWO NODES OF BINARY TREE >- (GFG HARD) 
+PREREQUISITE >- LCA 
+
+// JAVA BEGINNER FRIENDLY SOLUTION >- 
+
+APPROACH >- We have to calculate the minimum distance so if we do an observation then we will able to find it out that the minimum distance
+b/w two nodes will always come through the lca of these two nodes.
+So first of all we just find out the lca of both the nodes and then we find out the distance b/w first node and lca called it as dist1 and 
+then find out the dist2 from the second node to lca.We  now return our min distance answer as the sum of the dist1 + dist2.
+
+class GfG {
+    // RADHE RADHE 
+    public static Node lca(Node root , int a , int b ){
+        if(root==null || root.data==a || root.data==b){
+            return root ; 
+        }
+        
+                Node l = lca(root.left,a,b);
+                Node r = lca(root.right,a,b);
+                
+                if(l==null){
+                    return r ; 
+                }
+                else if(r==null){
+                    return l ; 
+                }
+                else{
+                    return root ;
+                }
+    }
+    public static int dist(Node root , int target){
+        if(root==null) return -1 ; 
+        if(root.data==target) return 0 ; 
+        
+        int l = dist(root.left,target);
+        int r = dist(root.right,target);
+        
+        if(l==-1 && r==-1){
+            return -1 ; 
+        }
+        else if(l==-1){
+            return r+1 ; 
+        }
+        else{
+            return l+1 ; 
+        }
+        
+    }
+    
+    int findDist(Node root, int a, int b) {
+        // Your code here
+        
+        Node LCA = lca(root,a,b);
+        
+        int dist1 = dist(LCA,a);
+        int dist2 = dist(LCA,b);
+        
+        return dist1+dist2 ;
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------
