@@ -612,3 +612,34 @@ class GfG {
     }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------------
+18. Kth Ancestor in a Binary Tree >- Using Path Approach 
+class Solution {
+    public boolean path(ArrayList<Integer> a , Node root , int node){
+        if(root==null) return false ; 
+        a.add(root.data);
+        if(root.data==node) return true  ; 
+        
+        if(path(a,root.left,node) || path(a,root.right,node)){
+            return true ; 
+        }
+        a.remove(a.size()-1);
+        return false ; 
+    }
+    public int kthAncestor(Node root, int k, int node) {
+        // Write your code here
+        
+        ArrayList<Integer> a = new ArrayList<>();
+        
+        path(a,root,node);
+        int count = 0 ; 
+        for(int i = a.size()-1 ; i>=0 ; i--){
+            if(count==k){
+                return a.get(i);
+            }
+            count++ ; 
+        }
+        
+        return -1 ;
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
