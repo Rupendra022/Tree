@@ -643,3 +643,29 @@ class Solution {
     }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+19. PATH SUM 2 LEETCODE >- 
+class Solution {
+    public void helper(List<List<Integer>> ans, TreeNode root, List<Integer> a, int target, int sum) {
+        if (root == null)
+            return;
+        sum += root.val;
+        a.add(root.val);
+        if (root.left == null && root.right == null && sum == target) {
+            ans.add(new ArrayList<>(a));
+        }
+
+        helper(ans, root.left, a, target, sum);
+        helper(ans, root.right, a, target, sum);
+        a.remove(a.size() - 1);
+
+    }
+
+    public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+        List<List<Integer>> ans = new ArrayList<>();
+
+        helper(ans, root, new ArrayList<>(), targetSum, 0);
+        return ans;
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
