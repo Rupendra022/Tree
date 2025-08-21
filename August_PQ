@@ -698,3 +698,73 @@ class Solution {
     }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------------
+21.All Nodes at a distance of k from Target Node >- 
+class Solution {
+    public void trackParent(TreeNode root, HashMap<TreeNode, TreeNode> parent) {
+        Queue<TreeNode> q = new LinkedList<>();
+
+        q.offer(root);
+
+        while (!q.isEmpty()) {
+            TreeNode current = q.poll();
+
+            if (current.left != null) {
+                parent.put(current.left, current);
+                q.offer(current.left);
+            }
+            if (current.right != null) {
+                parent.put(current.right, current);
+                q.offer(current.right);
+            }
+        }
+    }
+
+    public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+
+        List<Integer> ans = new ArrayList<>();
+        HashMap<TreeNode, TreeNode> parent = new HashMap<>();
+
+        trackParent(root, parent);
+
+        HashMap<TreeNode, Boolean> visited = new HashMap<>();
+        visited.put(target, true);
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(target);
+        int dist = 0;
+
+        while (!q.isEmpty()) {
+
+            int sz = q.size();
+            if (dist == k)
+                break;
+            dist++;
+
+            for (int i = 0; i < sz; i++) {
+                TreeNode current = q.poll();
+
+                if (current.left != null && visited.get(current.left) == null) {
+                    q.offer(current.left);
+                    visited.put(current.left, true);
+                }
+
+                if (current.right != null && visited.get(current.right) == null) {
+                    q.offer(current.right);
+                    visited.put(current.right, true);
+                }
+
+                if (parent.get(current) != null && visited.get(parent.get(current)) == null) {
+                    q.offer(parent.get(current));
+                    visited.put(parent.get(current), true);
+                }
+            }
+        }
+
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
+            ans.add(node.val);
+        }
+
+        return ans;
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------
