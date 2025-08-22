@@ -768,3 +768,73 @@ class Solution {
     }
 }
 -----------------------------------------------------------------------------------------------------------------------------------------------
+22. Amount of time to Burn a Binary Tree >- (Use the logic of Nodes at the distance of k from target Node)  
+class Solution {
+    public TreeNode trackParent(TreeNode root, HashMap<TreeNode, TreeNode> parent, int start) {
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        TreeNode res = null;
+
+        while (!q.isEmpty()) {
+            TreeNode current = q.poll();
+            if (current.val == start)
+                res = current;
+
+            if (current.left != null) {
+                parent.put(current.left, current);
+                q.offer(current.left);
+            }
+            if (current.right != null) {
+                parent.put(current.right, current);
+                q.offer(current.right);
+            }
+        }
+        return res;
+    }
+
+    public int amountOfTime(TreeNode root, int start) {
+        HashMap<TreeNode, TreeNode> parent = new HashMap<>();
+        TreeNode target = trackParent(root, parent, start);
+
+        Set<TreeNode> visited = new HashSet<>();
+        visited.add(target);
+
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(target);
+
+        int time = 0;
+        while (!q.isEmpty()) {
+            int sz = q.size();
+            boolean spread = false;
+
+            for (int i = 0; i < sz; i++) {
+                TreeNode current = q.poll();
+
+                if (current.left != null && !visited.contains(current.left)) {
+                    q.offer(current.left);
+                    visited.add(current.left);
+                    spread = true;
+                }
+                if (current.right != null && !visited.contains(current.right)) {
+                    q.offer(current.right);
+                    visited.add(current.right);
+                    spread = true;
+                }
+                if (parent.containsKey(current) && !visited.contains(parent.get(current))) {
+                    q.offer(parent.get(current));
+                    visited.add(parent.get(current));
+                    spread = true;
+                }
+            }
+
+            if (spread)
+                time++;
+        }
+
+        return time;
+    }
+}
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
