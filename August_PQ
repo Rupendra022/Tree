@@ -838,3 +838,27 @@ class Solution {
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
+23. 129 leetcode (self solved )>- Sum root to leaf Numbers 
+class Solution {
+    static int sum ;
+    public void helper(TreeNode root , int current ){
+        if(root==null) return ; 
+        current = current*10 + root.val ; 
+        if(root.left==null && root.right==null){
+            sum += current ; 
+            return ;
+        }
+
+        helper(root.left,current);
+        helper(root.right,current);
+         
+    }
+    public int sumNumbers(TreeNode root) {
+        sum = 0 ; 
+        helper(root,0);
+
+        return sum ;
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
