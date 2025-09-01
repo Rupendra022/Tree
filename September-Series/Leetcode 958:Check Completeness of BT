@@ -1,0 +1,24 @@
+class Solution {
+
+    public boolean isCompleteTree(TreeNode root) {
+        
+        if(root==null) return true ; 
+
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+
+        while(q.peek()!=null){
+            TreeNode current = q.poll();
+
+            q.offer(current.left);
+            q.offer(current.right);
+
+        }
+
+        while(!q.isEmpty() && q.peek()==null){
+            q.poll();
+        }
+
+        return q.isEmpty();
+    }
+}
