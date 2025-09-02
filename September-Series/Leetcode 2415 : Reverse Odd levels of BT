@@ -1,0 +1,22 @@
+class Solution {
+    public static void helper(TreeNode l , TreeNode r , int level){
+        if(l==null || r==null ){
+            return ; 
+        }
+
+        if(level%2==1){
+            int temp = l.val ; 
+            l.val = r.val ; 
+            r.val = temp ;
+        }
+
+        helper(l.left,r.right,level+1);
+        helper(l.right,r.left,level+1);
+    } 
+    public TreeNode reverseOddLevels(TreeNode root) {
+
+    helper(root.left,root.right,1);   
+        
+    return root ; 
+    }
+}
